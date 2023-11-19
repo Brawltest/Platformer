@@ -6,7 +6,7 @@ import tkinter.messagebox as msgb
 from PathToSprite import *
 import time, re
 import tkinter as tk
-from tkinter.ttk import Progressbar
+import tkinter.ttk as tkk
 
 #MovingSprite = pygame.sprite.Group()
 def sortNumbInList(unsortedlist:list[str]):
@@ -42,22 +42,29 @@ def load_images(path) -> list[Surface]:
 
 def load_images_wscreen(path) -> list[Surface]:
     images = []
+    amount = len(os.listdir(path))
     app = tk.Tk(screenName="Loading")
     lab = tk.Label(app,text="Loading")
+    lab.pack(padx=10,pady=10)
+    load = tkk.Progressbar(app,mode='determinate',length=300,maximum=len(os.listdir(path)),orient='horizontal')
+    load.pack(padx=10,pady=10)
     
     print(os.listdir(path))
     pathimages = sortNumbInList(os.listdir(path))
-    for pathimg in pathimages:
+    for index,pathimg in enumerate(pathimages):
+
+        load.config(value=index,maximum=len(os.listdir(path)))
+        lab.config(text=f'Loading : {index+1}/{amount}')
+        app.update_idletasks()
+        app.update()
+        time.sleep(0.04)
+        if index == 20:
+            time.sleep(1)
         print(path + pathimg)
         images.append(pygame.image.load(path + pathimg, ".png"))
+    time.sleep(0.5)
+    app.destroy()
     return images
-            
-        
-
-#class AnimatedSprite(Animation):
-#    spriteGroup : pygame.sprite.Group
-#    surf : Surface
-#    animations = dict() #name = animation
     
     
 class AnimatedSprite(pygame.sprite.Sprite):
