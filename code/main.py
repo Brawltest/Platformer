@@ -27,6 +27,9 @@ class Game(pygame.surface.Surface):
         self.ani_mario = sprites.AnimatedSprite((0,0),self.spr_mario)
         self.pos = (settings.Screen.Widht/2 - self.ani_mario.image.get_width()/2,
                     settings.Screen.Height/2 - self.ani_mario.image.get_height()/2)
+        self.txt_load = text.Text(32,"arial")
+        self.screen.blit(self.txt_load.update("LOADING"))
+        pygame.display.flip()
 
     def step(self):
         self.ani_mario.update_frame_dependent()
