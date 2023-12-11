@@ -68,17 +68,15 @@ def load_images_wscreen(path) -> list[Surface]:
     
     
 class AnimatedSprite(pygame.sprite.Sprite):
-
     def __init__(self, position: pygame.Vector2, images: list[Surface]):
         """
         Animated sprite object.
 
-        Args:
-            position: x, y coordinate on the screen to place the AnimatedSprite.
-            images: Images to use in the animation.
+        ### Args:
+        `position`: x, y coordinate on the screen to place the AnimatedSprite.
+        `images`: Images to use in the animation.
         """
         super(AnimatedSprite, self).__init__()
-
         size = (32, 32)  # This should match the size of the images.
 
         self.rect = pygame.Rect(position, size)
@@ -87,8 +85,6 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.images_left = [pygame.transform.flip(image, True, False) for image in images]  # Flipping every image.
         self.index = 0
         self.image = images[self.index]  # 'image' is the current image of the animation.
-
-        self.velocity = pygame.math.Vector2(0, 0)
 
         self.animation_time = 0.1
         self.current_time = 0
